@@ -12,10 +12,10 @@ config SHIELD_LEELOO_RIGHT
 	def_bool $(shields_list_contains,leeloo_right)
 	select SHIELD_LEELOO
 
-config SHIELD_LEELOO_REV2_LEFT
-	def_bool $(shields_list_contains,leeloo_rev2_left)
+config SHIELD_LEELOOV2_LEFT
+	def_bool $(shields_list_contains,leeloov2_left)
 	select SHIELD_LEELOO
 
-config SHIELD_LEELOO_REV2_RIGHT
-	def_bool $(shields_list_contains,leeloo_rev2_right)
+config SHIELD_LEELOOV2_RIGHT
+	def_bool $(shields_list_contains,leeloov2_right)
 	select SHIELD_LEELOO
