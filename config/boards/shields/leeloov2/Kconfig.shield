@@ -3,8 +3,8 @@
 
 config SHIELD_LEELOOV2_LEFT
 	def_bool $(shields_list_contains,leeloov2_left)
-	select SHIELD_LEELOOV2_LEFT
+	select SHIELD_LEELOO
 
 config SHIELD_LEELOOV2_RIGHT
 	def_bool $(shields_list_contains,leeloov2_right)
-	select SHIELD_LEELOOV2_RIGHT
+	select SHIELD_LEELOO
