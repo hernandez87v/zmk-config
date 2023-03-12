@@ -11,6 +11,21 @@ config ZMK_SPLIT_ROLE_CENTRAL
 	
 endif
 
+if SHIELD_LEELOO_LEFT
+
+config ZMK_KEYBOARD_NAME
+	default "Leeloo"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+	default y
+	
+endif
+
+if SHIELD_LEELOO
+
+config ZMK_SPLIT
+	default y
+
 if ZMK_DISPLAY
 
 config I2C
