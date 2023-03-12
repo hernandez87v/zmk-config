@@ -4,10 +4,20 @@
 if SHIELD_LEELOOV2_LEFT
 
 config ZMK_KEYBOARD_NAME
-	default "Leeloo v2"
+	default "Leeloo v2 -L"
 
 config ZMK_SPLIT_ROLE_CENTRAL
 	default y
+	
+endif
+
+if SHIELD_LEELOOV2_RIGHT
+
+config ZMK_KEYBOARD_NAME
+	default "Leeloo v2 -R"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+	default n
 	
 endif
 
