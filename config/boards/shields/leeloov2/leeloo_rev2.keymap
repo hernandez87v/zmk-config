@@ -2,6 +2,7 @@
  * Copyright (c) 2022 The ZMK Contributors
  * SPDX-License-Identifier: MIT
  */
+// $  west build -d build/left_v2 -p -b nice_nano_v2 -- -DSHIELD="leeloo_rev2_left nice_view_adapter nice_view" -DZMK_CONFIG="boards/shields/leeloo/"
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/outputs.h>
@@ -10,9 +11,10 @@
 #include <dt-bindings/zmk/rgb.h>
 
 // Layers
-#define DEFAULT    0       // default_layer
-#define LOWER      1       // lower_layer
-#define RAISE      2       // raise_layer
+#define QWRTY      0       // qwrty_layer
+#define COLDH      1       // coldh_layer
+#define LOWER      2       // lower_layer
+#define RAISE      3       // raise_layer
 
 // Short versions
 #define RGBON   &rgb_ug RGB_ON
@@ -46,25 +48,38 @@
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
-            label = " Base";
+        qwrty_layer {
+            label = " qwerty";
             bindings = <
 &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
 &kp TAB    &kp Q      &kp W      &kp E      &kp R      &kp T                            &kp Y      &kp U      &kp I      &kp O      &kp P      &kp GRAV
 &kp CAPS   &kp A      &kp S      &kp D      &kp F      &kp G                            &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
-&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &kp RSHFT
-                             &kp LALT   &kp LCTRL  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
+&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &to 1
+                             &kp LCTRL   &kp LALT  &lt 2 RET  &lt 3 MINUS    &lt 3 EQUAL  &lt 2 SPACE  &kp BSPC   &kp DEL
             >;
 
-             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+        };
+
+        coldh_layer {
+            label = " ColDH";
+            bindings = <
+&kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
+&kp TAB    &kp Q      &kp W      &kp F      &kp P      &kp B                            &kp J      &kp L      &kp U      &kp Y      &kp SEMI   &kp GRAV
+&kp CAPS   &kp A      &kp R      &kp S      &kp T      &kp G                            &kp M      &kp N      &kp E      &kp I      &kp O      &kp SQT
+&kp LSHFT  &kp Z      &kp X      &kp C      &kp D      &kp V     &kp C_PP    &kp LGUI   &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH   &to 0
+                             &kp LCTRL   &kp LALT  &lt 2 RET  &lt 3 MINUS    &lt 3 EQUAL  &lt 2 SPACE  &kp BSPC   &kp DEL
+            >;
+
+             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
 
         lower_layer {
             label = " Lower";
             bindings = <
-&trans     &kp F1     &kp F2     &kp F3     &kp F4     &kp F5                           &kp F6     &kp F7     &kp F8     &kp F9     &kp F10    &kp F11
-&trans     &trans     &trans     &trans     &trans     &trans                           &kp PG_UP  &kp HOME   &kp UP     &kp END    &trans     &kp F12
-&trans     &trans     &trans     &trans     &trans     &trans                           &kp PG_DN  &kp LEFT   &kp DOWN   &kp RIGHT  &trans     &trans
+&kp F1     &kp F2     &kp F3     &kp F4     &kp F5     &kp F6                           &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
+&trans     &trans     &trans     &trans     &trans     &trans                           &kp HOME   &kp UP     &kp END    &kp PG_UP  &trans     &trans
+&trans     &trans     &trans     &trans     &trans     &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     &trans
 VOLUP      VOLDN      MUTE       &trans     PREV       NEXT       &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
                                  &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
             >;
