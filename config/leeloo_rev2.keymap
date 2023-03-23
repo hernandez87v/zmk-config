@@ -139,6 +139,7 @@ RGBOFF     RGBEFF     RGBHUD     RGBSAD     RGBBRD     &trans     &trans     &tr
 
 //             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
+        
         droid_layer {
             label = " Droid";
             bindings = <
