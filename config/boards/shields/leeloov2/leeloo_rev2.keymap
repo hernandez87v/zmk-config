@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 // $  west build -d build/left_v2 -p -b nice_nano_v2 -- -DSHIELD="leeloo_rev2_left nice_view_adapter nice_view" -DZMK_CONFIG="boards/shields/leeloo/"
+// west build -d build/right_v2 -p -b nice_nano_v2 -- -DSHIELD="leeloo_rev2_right nice_view_adapter nice_view"
+// west build -d build/left_v2 -p -b nice_nano_v2 -- -DSHIELD="leeloo_rev2_left nice_view_adapter nice_view"
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/outputs.h>
@@ -15,6 +17,7 @@
 #define COLDH      1       // coldh_layer
 #define LOWER      2       // lower_layer
 #define RAISE      3       // raise_layer
+#define DROID      4       // droid_layer
 
 // Short versions
 #define RGBON   &rgb_ug RGB_ON
@@ -27,12 +30,49 @@
 #define RGBBRI  &rgb_ug RGB_BRI
 #define RGBBRD  &rgb_ug RGB_BRD
 #define RGBEFF  &rgb_ug RGB_EFF
+
+// Media / Android
+
+#define PWR     &kp K_PWR
+#define TV      &kp C_MEDIA_TV
+#define GUIDE   &kp C_MEDIA_GUIDE
+#define SRCH    &kp C_AC_SEARCH
+#define SEL     &kp C_MENU_SELECT
+#define BACK    &kp C_AC_BACK
 #define VOLUP   &kp C_VOLUME_UP
 #define VOLDN   &kp C_VOL_DN
 #define MUTE    &kp C_MUTE
 #define NEXT    &kp C_NEXT
 #define PREV    &kp C_PREVIOUS
 
+// Desktop and tab navigation shortcuts
+#define D_LT   LC(LG(LEFT))
+#define D_RT   LC(LG(RIGHT))
+#define TAB_RT LC(TAB)
+#define TAB_LT LC(LS(TAB))
+
+/ {
+    behaviors {
+        am: alpha_mods {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ALPHA_MT";
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            quick-tap-ms = <150>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+        as: alpha_shift {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ALPHA_SFT";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            flavor = "tap-preferred";
+            bindings = <&kp>, <&kp>;
+        };
+    };
+  };
 
 /* 
  * Assign the cs-gpios pin to 4.
@@ -54,7 +94,7 @@
 &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
 &kp TAB    &kp Q      &kp W      &kp E      &kp R      &kp T                            &kp Y      &kp U      &kp I      &kp O      &kp P      &kp GRAV
 &kp CAPS   &kp A      &kp S      &kp D      &kp F      &kp G                            &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
-&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &to 1
+&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &to 4
                              &kp LCTRL   &kp LALT  &lt 2 RET  &lt 3 MINUS    &lt 3 EQUAL  &lt 2 SPACE  &kp BSPC   &kp DEL
             >;
 
@@ -77,11 +117,11 @@
         lower_layer {
             label = " Lower";
             bindings = <
-&kp F1     &kp F2     &kp F3     &kp F4     &kp F5     &kp F6                           &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
-&trans     &trans     &trans     &trans     &trans     &trans                           &kp HOME   &kp UP     &kp END    &kp PG_UP  &trans     &trans
-&trans     &trans     &trans     &trans     &trans     &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     &trans
-VOLUP      VOLDN      MUTE       &trans     PREV       NEXT       &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
-                                 &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
+&kp F1  &kp F2     &kp F3     &kp F4     &kp F5          &kp F6                           &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
+&trans  &kp LA(F4) &kp TAB_LT &kp TAB_RT &kp LC(F4)      &trans                           &kp HOME   &kp UP     &kp END    &kp PG_UP  &trans     &trans
+&trans  &kp LCTRL  &kp LGUI   &kp LALT   &am LSHFT TAB   &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     &kp C_AL_CALC
+&trans  &kp D_LT   &kp D_RT   MUTE       PREV            NEXT       &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
+                              &trans     &trans          &trans     &trans     &trans     &trans     &trans     &trans
             >;
 
 //             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
@@ -99,6 +139,17 @@ RGBOFF     RGBEFF     RGBHUD     RGBSAD     RGBBRD     &trans     &trans     &tr
 
 //             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
+        droid_layer {
+            label = " Droid";
+            bindings = <
+&trans     &trans     &trans     &trans     &trans     &trans                           PWR           &trans        &trans        &trans        &trans        SRCH
+&trans     &trans     &trans     &trans     &trans     &trans                           HOME          UP            TV            &trans        &trans        &trans
+&trans     &trans     &trans     &trans     &trans     &trans                           LEFT          SEL           RIGHT         MUTE          PREV          NEXT  
+&trans     &trans     &trans     &trans     &trans     &trans     &kp C_PP   &trans     BACK          DOWN          GUIDE         &trans        &trans        &to 1
+                                 &trans     &trans     &trans     &trans     &trans     &trans        &trans        &trans
+            >;
 
+             sensor-bindings = <&inc_dec_kp VOLDN VOLUP>;
+        };
     };
 };
