@@ -1,7 +1,8 @@
+![](img/GH-Leeloov2.png)
 # zmk-config-leeloov2
 ZMK Config for Leeloo V2
 
-![](img/leeloov2-blackedout.jpg)
+
 
 ## Highlights
 
@@ -10,3 +11,5 @@ ZMK Config for Leeloo V2
 - DROID layer can be used as remote control for Google TV (Should work on other android devices)
 
 ![](img/Leeloov2.svg)
+
+![](img/leeloov2-blackedout.jpg)
