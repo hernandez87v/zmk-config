@@ -1,4 +1,4 @@
-![](img/GH-Leeloov2.png)
+![](img/Split-Keyboard-GH.png)
 # zmk-config-leeloov2
 ZMK Config for Leeloo V2
 
@@ -12,4 +12,5 @@ ZMK Config for Leeloo V2
 
 ![](img/Leeloov2.svg)
 
+![](img/GH-Leeloov2.png)
 ![](img/leeloov2-blackedout.jpg)
