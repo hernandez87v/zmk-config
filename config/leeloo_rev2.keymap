@@ -14,10 +14,10 @@
 
 // Layers
 #define QWRTY      0       // qwrty_layer
-#define COLDH      1       // coldh_layer
-#define LOWER      2       // lower_layer
-#define RAISE      3       // raise_layer
-#define DROID      4       // droid_layer
+#define LOWER      1       // lower_layer
+#define RAISE      2       // raise_layer
+#define DROID      3       // droid_layer
+#define COLDH      4       // coldh_layer
 
 // Short versions
 #define RGBON   &rgb_ug RGB_ON
@@ -32,7 +32,7 @@
 #define RGBEFF  &rgb_ug RGB_EFF
 
 // Media / Android
-
+#define APP     &kp K_APP
 #define PWR     &kp K_PWR
 #define TV      &kp C_MEDIA_TV
 #define GUIDE   &kp C_MEDIA_GUIDE
@@ -50,6 +50,15 @@
 #define D_RT   LC(LG(RIGHT))
 #define TAB_RT LC(TAB)
 #define TAB_LT LC(LS(TAB))
+
+// Undo, Cut, Copy, Paste, Redo 
+#define UNDO  &kp LC(Z)
+#define CUT   &kp LC(X)
+#define COPY  &kp LC(C)
+#define PASTE &kp LC(V)
+#define REDO  &kp LC(LS(Z))
+#define SELALL &kp LC(A)
+#define SAVE &kp LC(S)
 
 / {
     behaviors {
@@ -89,26 +98,13 @@
         compatible = "zmk,keymap";
 
         qwrty_layer {
-            label = " qwerty";
+            label = " QWERTY";
             bindings = <
 &kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
 &kp TAB    &kp Q      &kp W      &kp E      &kp R      &kp T                            &kp Y      &kp U      &kp I      &kp O      &kp P      &kp GRAV
 &kp CAPS   &kp A      &kp S      &kp D      &kp F      &kp G                            &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
-&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &to 4
-                             &kp LCTRL   &kp LALT  &lt 2 RET  &lt 3 MINUS    &lt 3 EQUAL  &lt 2 SPACE  &kp BSPC   &kp DEL
-            >;
-
-             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
-        };
-
-        coldh_layer {
-            label = " ColDH";
-            bindings = <
-&kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
-&kp TAB    &kp Q      &kp W      &kp F      &kp P      &kp B                            &kp J      &kp L      &kp U      &kp Y      &kp SEMI   &kp GRAV
-&kp CAPS   &kp A      &kp R      &kp S      &kp T      &kp G                            &kp M      &kp N      &kp E      &kp I      &kp O      &kp SQT
-&kp LSHFT  &kp Z      &kp X      &kp C      &kp D      &kp V     &kp C_PP    &kp LGUI   &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH   &to 0
-                             &kp LCTRL   &kp LALT  &lt 2 RET  &lt 3 MINUS    &lt 3 EQUAL  &lt 2 SPACE  &kp BSPC   &kp DEL
+&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &to 3
+                             &kp LCTRL   &kp LALT  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
             >;
 
              sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
@@ -118,8 +114,8 @@
             label = " Lower";
             bindings = <
 &kp F1  &kp F2     &kp F3     &kp F4     &kp F5          &kp F6                           &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
-&trans  &kp LA(F4) &kp TAB_LT &kp TAB_RT &kp LC(F4)      &trans                           &kp HOME   &kp UP     &kp END    &kp PG_UP  &trans     &trans
-&trans  &kp LCTRL  &kp LGUI   &kp LALT   &am LSHFT TAB   &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     &kp C_AL_CALC
+&trans  &kp LA(F4) &kp TAB_LT &kp TAB_RT &kp LC(F4)      &trans                           &kp HOME   &kp UP     &kp END    &kp PG_UP  &kp LBKT   &kp RBKT
+&trans  &kp LCTRL  &kp LGUI   &kp LALT   &am LSHFT TAB   &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     &trans
 &trans  &kp D_LT   &kp D_RT   MUTE       PREV            NEXT       &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
                               &trans     &trans          &trans     &trans     &trans     &trans     &trans     &trans
             >;
@@ -130,27 +126,40 @@
         raise_layer {
             label = " Raise";
             bindings = <
-&trans     &trans     &trans     &trans     &trans     &trans                           &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans
-&trans     &trans     &trans     &trans     &trans     &trans                           &trans        &trans        &trans        &trans        &reset        &bootloader
-RGBON      RGBTOG     RGBHUI     RGBSAI     RGBBRI     &trans                           &trans        &trans        &trans        &trans        &trans        &trans
-RGBOFF     RGBEFF     RGBHUD     RGBSAD     RGBBRD     &trans     &trans     &trans     &trans        &trans        &trans        &trans        &trans        &trans
-                                 &trans     &trans     &trans     &trans     &trans     &trans        &bt BT_CLR    &trans
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans                           &kp C_AL_CALC &kp FSLH      &kp KP_MULTIPLY &kp KP_MINUS  SELALL   SAVE 
+RGBON         RGBTOG        RGBHUI        RGBSAI        RGBBRI        &bootloader                      &kp KP_N7     &kp KP_N8     &kp KP_N9       &kp KP_PLUS   UNDO     REDO  
+RGBOFF        RGBEFF        RGBHUD        RGBSAD        RGBBRD        &reset                           &kp KP_N4     &kp KP_N5     &kp KP_N6       &trans        COPY     PASTE 
+&trans        &trans        &trans        &trans        &trans        &trans     &trans     &trans     &kp KP_N1     &kp KP_N2     &kp KP_N3       &kp KP_ENTER  CUT      &none  
+                                          &trans        &bt BT_CLR    &trans     &trans     &trans     &trans        &kp KP_N0     &kp DOT 
             >;
 
 //             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
-        
+
         droid_layer {
-            label = " Droid";
+            label = " DROID";
             bindings = <
-&trans     &trans     &trans     &trans     &trans     &trans                           PWR           &trans        &trans        &trans        &trans        SRCH
-&trans     &trans     &trans     &trans     &trans     &trans                           HOME          UP            TV            &trans        &trans        &trans
-&trans     &trans     &trans     &trans     &trans     &trans                           LEFT          SEL           RIGHT         MUTE          PREV          NEXT  
-&trans     &trans     &trans     &trans     &trans     &trans     &kp C_PP   &trans     BACK          DOWN          GUIDE         &trans        &trans        &to 1
-                                 &trans     &trans     &trans     &trans     &trans     &trans        &trans        &trans
+&trans     &trans     &trans     &trans     &trans     &trans                           PWR           APP           &trans        &trans        &trans        SRCH
+&trans     &trans     &trans     &trans     &trans     &trans                           &kp HOME      &kp UP        TV            &trans        &trans        &trans
+&trans     &trans     &trans     &trans     &trans     &trans                           &kp LEFT      SEL           &kp RIGHT     MUTE          PREV          NEXT  
+&trans     &trans     &trans     &trans     &trans     &trans     &kp C_PP   &kp LGUI   BACK          &kp DOWN      GUIDE         &trans        &trans        &to 4
+                             &kp LCTRL   &kp LALT  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
             >;
 
-             sensor-bindings = <&inc_dec_kp VOLDN VOLUP>;
+             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+        };
+
+        coldh_layer {
+            label = " COL-DH";
+            bindings = <
+&kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
+&kp TAB    &kp Q      &kp W      &kp F      &kp P      &kp B                            &kp J      &kp L      &kp U      &kp Y      &kp SEMI   &kp GRAV
+&kp CAPS   &kp A      &kp R      &kp S      &kp T      &kp G                            &kp M      &kp N      &kp E      &kp I      &kp O      &kp SQT
+&kp LSHFT  &kp Z      &kp X      &kp C      &kp D      &kp V     &kp C_PP    &kp LGUI   &kp K      &kp H      &kp COMMA  &kp DOT    &kp FSLH   &to 0
+                             &kp LCTRL   &kp LALT  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
+            >;
+
+             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
     };
 };
