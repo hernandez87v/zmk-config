@@ -12,6 +12,8 @@ ZMK Config for Leeloo V2
 
 ![](img/Base.png)
 
+![](img/COL-DH.png)
+
 ![](img/Leeloov2.svg)
 
 ![](img/GH-Leeloov2.png)
