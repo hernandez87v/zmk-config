@@ -10,6 +10,8 @@ ZMK Config for Leeloo V2
 - Added Numpad
 - DROID layer can be used as remote control for Google TV (Should work on other android devices)
 
+![](img/Base.png)
+
 ![](img/Leeloov2.svg)
 
 ![](img/GH-Leeloov2.png)
