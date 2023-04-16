@@ -126,11 +126,11 @@
         raise_layer {
             label = " Raise";
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans                           &kp C_AL_CALC &kp FSLH      &kp KP_MULTIPLY &kp KP_MINUS  SELALL   SAVE 
-RGBON         RGBTOG        RGBHUI        RGBSAI        RGBBRI        &bootloader                      &kp KP_N7     &kp KP_N8     &kp KP_N9       &kp KP_PLUS   UNDO     REDO  
-RGBOFF        RGBEFF        RGBHUD        RGBSAD        RGBBRD        &reset                           &kp KP_N4     &kp KP_N5     &kp KP_N6       &trans        COPY     PASTE 
-&trans        &trans        &trans        &trans        &trans        &trans     &trans     &trans     &kp KP_N1     &kp KP_N2     &kp KP_N3       &kp KP_ENTER  CUT      &none  
-                                          &trans        &bt BT_CLR    &trans     &trans     &trans     &trans        &kp KP_N0     &kp DOT 
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans                           &am KP_NUM C_AL_CALC &kp FSLH      &kp KP_MULTIPLY &kp KP_MINUS  SELALL   SAVE 
+RGBON         RGBTOG        RGBHUI        RGBSAI        RGBBRI        &bootloader                      &kp KP_N7            &kp KP_N8     &kp KP_N9       &kp KP_PLUS   UNDO     REDO  
+RGBOFF        RGBEFF        RGBHUD        RGBSAD        RGBBRD        &reset                           &kp KP_N4            &kp KP_N5     &kp KP_N6       &trans        COPY     PASTE 
+&trans        &trans        &trans        &trans        &trans        &trans     &trans     &trans     &kp KP_N1            &kp KP_N2     &kp KP_N3       &kp KP_ENTER  CUT      &none  
+                                          &trans        &bt BT_CLR    &trans     &trans     &trans     &trans               &kp KP_N0     &kp DOT 
             >;
 
 //             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
