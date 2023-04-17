@@ -19,6 +19,10 @@
 #define DROID      3       // droid_layer
 #define COLDH      4       // coldh_layer
 
+// Key position groups
+#define KEYS_L 0 1 2 3 4 5 12 13 14 15 16 17 24 25 26 27 28 29 36 37 38 39 40 41
+#define KEYS_R 6 7 8 9 10 11 18 19 20 21 22 23 30 31 32 33 34 35 42 43 44 46 47 48
+
 // Short versions
 #define RGBON   &rgb_ug RGB_ON
 #define RGBOFF  &rgb_ug RGB_OFF
@@ -71,14 +75,60 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
-        as: alpha_shift {
+        // as: alpha_shift {
+        //     compatible = "zmk,behavior-hold-tap";
+        //     label = "ALPHA_SFT";
+        //     #binding-cells = <2>;
+        //     tapping-term-ms = <200>;
+        //     quick-tap-ms = <150>;
+        //     flavor = "tap-preferred";
+        //     bindings = <&kp>, <&kp>;
+        // };
+        aml: alpha_mods_l {
             compatible = "zmk,behavior-hold-tap";
-            label = "ALPHA_SFT";
+            label = "ALPHA_MT_L";
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            quick-tap-ms = <150>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R>;
+            hold-trigger-on-release;
+            global-quick-tap;
+        };
+        asl: alpha_shift_l {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ALPHA_SFT_L";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
             quick-tap-ms = <150>;
-            flavor = "tap-preferred";
+            flavor = "balanced";
             bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_R>;
+            hold-trigger-on-release;
+        };
+        amr: alpha_mods_r {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ALPHA_MT_R";
+            #binding-cells = <2>;
+            tapping-term-ms = <250>;
+            quick-tap-ms = <150>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L>;
+            hold-trigger-on-release;
+            global-quick-tap;
+        };
+        asr: alpha_shift_r {
+            compatible = "zmk,behavior-hold-tap";
+            label = "ALPHA_SFT_R";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <150>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <KEYS_L>;
+            hold-trigger-on-release;
         };
     };
   };
@@ -100,11 +150,11 @@
         qwrty_layer {
             label = " QWERTY";
             bindings = <
-&kp ESC    &kp N1     &kp N2     &kp N3     &kp N4     &kp N5                           &kp N6     &kp N7     &kp N8     &kp N9     &kp N0     &kp BSLH
-&kp TAB    &kp Q      &kp W      &kp E      &kp R      &kp T                            &kp Y      &kp U      &kp I      &kp O      &kp P      &kp GRAV
-&kp CAPS   &kp A      &kp S      &kp D      &kp F      &kp G                            &kp H      &kp J      &kp K      &kp L      &kp SEMI   &kp SQT
-&kp LSHFT  &kp Z      &kp X      &kp C      &kp V      &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M      &kp COMMA  &kp DOT    &kp FSLH   &to 3
-                             &kp LCTRL   &kp LALT  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
+&kp ESC   &kp N1      &kp N2      &kp N3       &kp N4       &kp N5                           &kp N6     &kp N7       &kp N8       &kp N9      &kp N0         &kp BSLH
+&kp TAB   &kp Q       &kp W       &kp E        &kp R        &kp T                            &kp Y      &kp U        &kp I        &kp O       &kp P          &kp GRAV
+&kp CAPS  &aml LGUI A &aml LALT S &aml LCTRL D &asl LSHFT F &kp G                            &kp H      &asr RSHFT J &amr RCTRL K &amr RALT L &amr RGUI SEMI &kp SQT
+&kp LSHFT &kp Z       &kp X       &kp C        &kp V        &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M        &kp COMMA    &kp DOT     &kp FSLH       &to 3
+                                    &kp LCTRL   &kp LALT  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
             >;
 
              sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
