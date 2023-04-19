@@ -13,7 +13,7 @@
 #include <dt-bindings/zmk/rgb.h>
 
 // Layers
-#define BASE      0        // base_layer
+#define BASE       0       // base_layer
 #define LOWER      1       // lower_layer
 #define RAISE      2       // raise_layer
 #define DROID      3       // droid_layer
@@ -58,13 +58,13 @@
 #define TAB_LT LC(LS(TAB))
 
 // Undo, Cut, Copy, Paste, Redo 
-#define UNDO  &kp LC(Z)
-#define CUT   &kp LC(X)
-#define COPY  &kp LC(C)
-#define PASTE &kp LC(V)
-#define REDO  &kp LC(LS(Z))
+#define UNDO   &kp LC(Z)
+#define CUT    &kp LC(X)
+#define COPY   &kp LC(C)
+#define PASTE  &kp LC(V)
+#define REDO   &kp LC(LS(Z))
 #define SELALL &kp LC(A)
-#define SAVE &kp LC(S)
+#define SAVE   &kp LC(S)
 
 / {
     behaviors {
@@ -77,15 +77,6 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
-        // as: alpha_shift {
-        //     compatible = "zmk,behavior-hold-tap";
-        //     label = "ALPHA_SFT";
-        //     #binding-cells = <2>;
-        //     tapping-term-ms = <200>;
-        //     quick-tap-ms = <150>;
-        //     flavor = "tap-preferred";
-        //     bindings = <&kp>, <&kp>;
-        // };
         aml: alpha_mods_l {
             compatible = "zmk,behavior-hold-tap";
             label = "ALPHA_MT_L";
@@ -135,10 +126,6 @@
     };
   };
 
-/* 
- * Assign the cs-gpios pin to 4.
- * Uncomment these next three lines if implementing nice!view Displays
- */
 &nice_view_spi {
    cs-gpios = <&pro_micro 4 GPIO_ACTIVE_HIGH>;
 };
@@ -155,8 +142,8 @@
 &kp ESC   &kp N1      &kp N2      &kp N3       &kp N4       &kp N5                           &kp N6     &kp N7       &kp N8       &kp N9      &kp N0         &kp BSLH
 &kp TAB   &kp Q       &kp W       &kp E        &kp R        &kp T                            &kp Y      &kp U        &kp I        &kp O       &kp P          &kp GRAV
 &kp CAPS  &aml LGUI A &aml LALT S &aml LCTRL D &asl LSHFT F &kp G                            &kp H      &asr RSHFT J &amr RCTRL K &amr RALT L &amr RGUI SEMI &kp SQT
-&kp LSHFT &kp Z       &kp X       &kp C        &kp V        &kp B     &kp C_PP    &kp LGUI   &kp N      &kp M        &kp COMMA    &kp DOT     &kp FSLH       &to 3
-                                    &kp LCTRL   &kp LALT  &lt 1 RET  &lt 2 MINUS    &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC   &kp DEL
+&kp LSHFT &kp Z       &kp X       &kp C        &kp V        &kp B    &kp C_PP    &kp LGUI    &kp N      &kp M        &kp COMMA    &kp DOT     &kp FSLH       &to 3
+                                     &kp LCTRL  &kp LALT  &lt 1 RET  &lt 2 MINUS &lt 2 EQUAL  &lt 1 SPACE  &kp BSPC  &kp DEL
             >;
 
              sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
@@ -167,8 +154,8 @@
             bindings = <
 &kp F1  &kp F2     &kp F3     &kp F4     &kp F5          &kp F6                           &kp F7     &kp F8     &kp F9     &kp F10    &kp F11    &kp F12
 &trans  &kp LA(F4) &kp TAB_LT &kp TAB_RT &kp LC(F4)      &trans                           &kp HOME   &kp UP     &kp END    &kp PG_UP  &kp LBKT   &kp RBKT
-&trans  &kp LCTRL  &kp LGUI   &kp LALT   &am LSHFT TAB   &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     &trans
-&trans  &kp D_LT   &kp D_RT   MUTE       PREV            NEXT       &trans     &trans     &trans     &trans     &trans     &trans     &trans     &trans
+&trans  &kp LCTRL  &kp LGUI   &kp LALT   &am LSHFT TAB   &trans                           &kp LEFT   &kp DOWN   &kp RIGHT  &kp PG_DN  &trans     SAVE
+&trans  &kp D_LT   &kp D_RT   MUTE       PREV            NEXT       &trans     &trans     COPY       PASTE      SELALL     UNDO       REDO       CUT    
                               &trans     &trans          &trans     &trans     &trans     &trans     &trans     &trans
             >;
 
@@ -178,11 +165,11 @@
         raise_layer {
             label = " Raise";
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans                           &am KP_NUM C_AL_CALC &kp FSLH      &kp KP_MULTIPLY &kp KP_MINUS  SELALL   SAVE 
-RGBON         RGBTOG        RGBHUI        RGBSAI        RGBBRI        &bootloader                      &kp KP_N7            &kp KP_N8     &kp KP_N9       &kp KP_PLUS   UNDO     REDO  
-RGBOFF        RGBEFF        RGBHUD        RGBSAD        RGBBRD        &reset                           &kp KP_N4            &kp KP_N5     &kp KP_N6       &trans        COPY     PASTE 
-&trans        &trans        &trans        &trans        &trans        &trans     &trans     &trans     &kp KP_N1            &kp KP_N2     &kp KP_N3       &kp KP_ENTER  CUT      &none  
-                                          &trans        &bt BT_CLR    &trans     &trans     &trans     &trans               &kp KP_N0     &kp DOT 
+&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4  &trans                           &kp KP_N7    &kp KP_N8  &kp KP_N9  &kp FSLH         &kp HOME  &none
+RGBON         RGBTOG        RGBHUI        RGBSAI        RGBBRI        &bootloader                      &kp KP_N4    &kp KP_N5  &kp KP_N6  &kp KP_MULTIPLY  &kp PG_UP &none
+RGBOFF        RGBEFF        RGBHUD        RGBSAD        RGBBRD        &reset                           &kp KP_N1    &kp KP_N2  &kp KP_N3  &kp KP_MINUS     &kp PG_DN &none
+&trans        &trans        &trans        &trans        &trans        &trans     &trans     &trans     &kp KP_ENTER &kp KP_N0  &kp DOT    &kp KP_PLUS      &kp END   &none
+                                          &trans        &bt BT_CLR    &trans     &trans     &trans     &am KP_NUM C_AL_CALC  &trans     &trans
             >;
 
 //             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
